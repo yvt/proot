@@ -612,6 +612,10 @@ static int handle_sysenter_end(Tracee *tracee, Config *config)
 	case PR_fchmodat:
 		return handle_chmod_enter_end(tracee, SYSARG_2, SYSARG_3, 
 			IGNORE_SYSARG, SYSARG_1, config);
+	/* int fchmodat2(int dirfd, const char *pathname, mode_t mode, int flags */
+	case PR_fchmodat2:
+		// let libc handle fallback
+		return -ENOSYS;
 
 	/* handle_chown(tracee, path_sysarg, owner_sysarg, group_sysarg, fd_sysarg, dirfd_sysarg, config) */
 	/* int chown(const char *pathname, uid_t owner, gid_t group) */
